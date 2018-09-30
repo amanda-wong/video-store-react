@@ -20,6 +20,12 @@ class App extends Component {
         })
     }
 
+    handleKeyPress = (e) => {
+        if(e.keyCode === 13) {            
+            this.searchHandler();
+        }
+    }
+
     searchHandler = () => {
         var queryString = this.state.searchText.split(' ').join('+');
 
@@ -35,8 +41,8 @@ class App extends Component {
         console.log(this.state.searchText);
         
         return (
-            <div className="App">
-                <SearchBar inputChange={this.inputChangeHandler} searchIconClick={this.searchHandler}/>
+            <div className="App" onKeyDown={this.handleKeyPress}>
+                <SearchBar inputChange={this.inputChangeHandler} searchIconClick={this.searchHandler} />
                 <Display results={this.state.searchResult} />
             </div>
         );
