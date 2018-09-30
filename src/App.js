@@ -21,12 +21,14 @@ class App extends Component {
     }
 
     searchHandler = () => {
-        // let searchText = this.state.searchText;
-        fetch('http://localhost:8000/genres')
-            .then(res => res.json())
-            .then((data) => this.setState({searchResult: data}))
-            .catch(error => console.error('Fetch Error: ', error))
+        var queryString = this.state.searchText.split(' ').join('+');
 
+        if(queryString !== '') {
+            fetch('http://localhost:8000/movies/search?q=' + queryString)
+                .then(res => res.json())
+                .then((data) => this.setState({searchResult: data}))
+                .catch(error => console.error('Fetch Error: ', error))       
+        }
     }
 
     render() {
