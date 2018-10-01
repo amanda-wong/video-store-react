@@ -4,7 +4,7 @@ import './style.css';
 
 class Display extends Component {
     render() {
-        console.log(this.props.results)
+        console.log("Displayed Data: ", this.props.results)
         
         const results = this.props.results.map((el,i) => <Item key={i} title={el.title} genre={el.genre} actor={el.actor} />);   
 

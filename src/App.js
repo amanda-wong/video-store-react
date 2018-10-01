@@ -9,8 +9,8 @@ class App extends Component {
         super();
         this.state = {
             searchText: '',
-            searchResult: []
-                
+            searchResult: [],
+            genre: ''
         }
     }
 
@@ -26,10 +26,24 @@ class App extends Component {
         }
     }
 
+    dropdownHandler = (e) => {
+        this.setState({genre: e.target.value})
+        this.searchHandler();
+    }
+
     searchHandler = () => {
+        var genre = this.state.genre;
         var queryString = this.state.searchText.split(' ').join('+');
 
-        if(queryString !== '') {
+        if(genre !== '' && queryString === '') {
+            fetch('http://localhost:8000/movies/' + genre)
+                .then(res => res.json())
+                .then((data) => this.setState({searchResult: data}))
+                .catch(error => console.error('Fetch Error: ', error)) 
+        }
+
+
+        if(genre === '' && queryString !== '') {
             fetch('http://localhost:8000/movies/search?q=' + queryString)
                 .then(res => res.json())
                 .then((data) => this.setState({searchResult: data}))
@@ -38,11 +52,12 @@ class App extends Component {
     }
 
     render() {
-        console.log(this.state.searchText);
+        console.log('searchText:',this.state.searchText);
+        console.log('genre: ',this.state.genre);
         
         return (
             <div className="App" onKeyDown={this.handleKeyPress}>
-                <SearchBar inputChange={this.inputChangeHandler} searchIconClick={this.searchHandler} />
+                <SearchBar inputChange={this.inputChangeHandler} searchIconClick={this.searchHandler} dropdown={this.dropdownHandler}/>
                 <Display results={this.state.searchResult} />
             </div>
         );
