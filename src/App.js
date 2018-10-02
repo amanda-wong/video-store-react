@@ -33,22 +33,22 @@ class App extends Component {
 
     searchHandler = () => {
         var genre = this.state.genre;
-        var queryString = this.state.searchText.split(' ').join('+');
-
-        if(genre !== '' && queryString === '') {
-            fetch('http://localhost:8000/movies/' + genre)
-                .then(res => res.json())
-                .then((data) => this.setState({searchResult: data}))
-                .catch(error => console.error('Fetch Error: ', error)) 
+        var search = this.state.searchText;
+        var url = 'http://localhost:8000/movies';
+     
+        if(search !== '' && genre !== '') {
+            url += `?q=${search}&genre=${genre}`;
+        } else if (search !== '' && genre === '') {
+            url += `?q=${search}`;
+        } else if(search === '' && genre !== '') {
+            url += `?genre=${genre}`;
         }
-
-
-        if(genre === '' && queryString !== '') {
-            fetch('http://localhost:8000/movies/search?q=' + queryString)
-                .then(res => res.json())
-                .then((data) => this.setState({searchResult: data}))
-                .catch(error => console.error('Fetch Error: ', error))       
-        }
+            
+        fetch(url)
+            .then(res => res.json())
+            .then((data) => this.setState({searchResult: data}))
+            .catch(error => console.error('Fetch Error: ', error))       
+        
     }
 
     render() {
