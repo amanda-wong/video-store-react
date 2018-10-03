@@ -28,7 +28,6 @@ class App extends Component {
 
     dropdownHandler = (e) => {
         this.setState({genre: e.target.value})
-        this.searchHandler();
     }
 
     searchHandler = () => {
@@ -42,6 +41,8 @@ class App extends Component {
             url += `?q=${search}`;
         } else if(search === '' && genre !== '') {
             url += `?genre=${genre}`;
+        } else {
+            return;
         }
             
         fetch(url)
