@@ -10,4 +10,11 @@
 
 .title {
     font-weight: bold;
+    margin-right: 30px;
+    text-decoration: none;
+    color: #000;
+}
+
+.title:hover  {
+    text-decoration: underline;
 }

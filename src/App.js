@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import SearchBar from './components/search-bar';
-import Display from './components/display';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Movie from './views/movie';
+import Home from './views/home';
 import './App.css';
 
 class App extends Component {
 
-    constructor(){
+    constructor() {
         super();
         this.state = {
             searchText: '',
-            searchResult: [],
+            displayResult: [],
             genre: ''
         }
     }
@@ -21,46 +23,70 @@ class App extends Component {
     }
 
     handleKeyPress = (e) => {
-        if(e.keyCode === 13) {            
+        if (e.keyCode === 13) {
             this.searchHandler();
         }
     }
 
     dropdownHandler = (e) => {
-        this.setState({genre: e.target.value})
+        this.setState({ genre: e.target.value })
     }
 
     searchHandler = () => {
         var genre = this.state.genre;
         var search = this.state.searchText;
         var url = 'http://localhost:8000/movies';
-     
-        if(search !== '' && genre !== '') {
+
+        if (search !== '' && genre !== '') {
             url += `?q=${search}&genre=${genre}`;
         } else if (search !== '' && genre === '') {
             url += `?q=${search}`;
-        } else if(search === '' && genre !== '') {
+        } else if (search === '' && genre !== '') {
             url += `?genre=${genre}`;
         } else {
             return;
         }
-            
+
         fetch(url)
             .then(res => res.json())
-            .then((data) => this.setState({searchResult: data}))
-            .catch(error => console.error('Fetch Error: ', error))       
-        
+            .then((data) => this.setState({ displayResult: data }))
+            .catch(error => console.error('Fetch Error: ', error))
+
+    }
+
+    movieLinkHandler = (movieTitle) => {
+        let movie = movieTitle.split(' ').join('-')
+        var url = `http://localhost:8000/movie/${movie}`;
+
+        fetch(url)
+        .then(res => res.json())
+        .then((data) => this.setState({displayResult: data}))
+        .catch(error => console.error('Fetch Error: ', error)) 
     }
 
     render() {
-        console.log('searchText:',this.state.searchText);
-        console.log('genre: ',this.state.genre);
-        
+        console.log('searchText:', this.state.searchText);
+        console.log('genre: ', this.state.genre);
+
         return (
-            <div className="App" onKeyDown={this.handleKeyPress}>
-                <SearchBar inputChange={this.inputChangeHandler} searchIconClick={this.searchHandler} dropdown={this.dropdownHandler}/>
-                <Display results={this.state.searchResult} />
-            </div>
+            <BrowserRouter>
+                <div className="App" onKeyDown={this.handleKeyPress}>
+                    <SearchBar inputChange={this.inputChangeHandler} searchIconClick={this.searchHandler} dropdown={this.dropdownHandler} />
+                    <div className="display-container">
+                        <Route 
+                            path="/" exact 
+                            render={(props) => 
+                                <Home {...props} results={this.state.displayResult} link={this.movieLinkHandler} />
+                            } 
+                        />
+                        <Route 
+                            path="/movie/:slug" 
+                            render={(props) => 
+                                <Movie {...props} results={this.state.displayResult} />}
+                        />
+                    </div>
+                </div>
+            </BrowserRouter>
         );
     }
 }

@@ -9,13 +9,12 @@ class SearchBar extends Component {
         }
     }
 
-
     componentDidMount = () => {
         fetch('http://localhost:8000/genres')
-        .then(res => res.json())
-        .then((data) => this.setState({genres: data}))
-        .catch(error => console.error('Fetch Error: ', error)) 
-    }
+            .then(res => res.json())
+            .then((data) => this.setState({genres: data}))
+            .catch(error => console.error('Fetch Error: ', error)) 
+    } 
 
     handleGenreChange = (e) => {
         this.props.dropdown(e);
