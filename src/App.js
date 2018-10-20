@@ -43,9 +43,7 @@ class App extends Component {
             url += `?q=${search}`;
         } else if (search === '' && genre !== '') {
             url += `?genre=${genre}`;
-        } else {
-            return;
-        }
+        } 
 
         fetch(url)
             .then(res => res.json())
@@ -76,8 +74,9 @@ class App extends Component {
                         <Route 
                             path="/" exact 
                             render={(props) => 
-                                <Home {...props} results={this.state.displayResult} link={this.movieLinkHandler} />
-                            } 
+                                <Home {...props} 
+                                    results={this.state.displayResult} 
+                                    link={this.movieLinkHandler} /> } 
                         />
                         <Route 
                             path="/movie/:slug" 
