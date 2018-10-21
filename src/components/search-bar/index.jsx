@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import Events from '../../events';
 import './style.css';
 
 class SearchBar extends Component {
@@ -14,21 +16,51 @@ class SearchBar extends Component {
             .then(res => res.json())
             .then((data) => this.setState({genres: data}))
             .catch(error => console.error('Fetch Error: ', error)) 
-    } 
+    }
+
+    componentDidUpdate() {
+        if (this.state.redirect) {
+            this.setState({ redirect: null });
+        }
+    }
 
     handleGenreChange = (e) => {
-        this.props.dropdown(e);
+        this.setState({
+            genre: e.target.value
+        })
     }
 
     handleKeyPress = (e) => {
-        this.props.inputChange(e);
+        this.setState({
+            searchText: e.target.value
+        })
     }
 
     handleClick = () => {
-        this.props.searchIconClick();
+        var genre = this.state.genre;
+        var search = this.state.searchText;
+        var url = 'http://localhost:8000/movies';
+    
+        if (search && genre) {
+            url += `?q=${search}&genre=${genre}`;
+        } else if (search && !genre) {
+            url += `?q=${search}`;
+        } else if (!search && genre) {
+            url += `?genre=${genre}`;
+        }
+    
+        fetch(url)
+            .then(res => res.json())
+            .then((data) => Events.publish('SEARCH', { results: data }))
+            .catch(error => console.error('Fetch Error: ', error));
+
+        this.setState({ redirect: true });
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to={{ pathname: '/' }} />;
+        }
         
         let genres = this.state.genres.map((item, i) => <option key={i} value={item.genre}>{item.genre}</option>)
 

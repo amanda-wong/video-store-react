@@ -1,0 +1,20 @@
+.search-item {
+    display:flex;
+    text-transform: capitalize;
+    margin-bottom: 30px;
+}
+
+.search-item div {
+    margin-right: 30px;
+}
+
+.title {
+    font-weight: bold;
+    margin-right: 30px;
+    text-decoration: none;
+    color: #000;
+}
+
+.title:hover  {
+    text-decoration: underline;
+}

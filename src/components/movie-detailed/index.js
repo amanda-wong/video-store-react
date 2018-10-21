@@ -1,19 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import './style.css';
 
-class Item extends Component {
-
-    handleLinkClick = () => {
-        this.props.link(this.props.title);
-    }
-
+class MovieDetailed extends Component {
     render() {
-        let movieUrl =  '/movie/' + this.props.title.split(' ').join('-'); 
-
         return (
             <div className="search-item">
-                {this.props.title ? <Link className="title" to={movieUrl} onClick={this.handleLinkClick}>{this.props.title}</Link> : null}
+                {this.props.title ? <div className="title">{this.props.title}</div> : null}
                 {this.props.year ? <div className="actor">{this.props.year}</div> : null}
                 {this.props.genre ? <div className="genre">{this.props.genre}</div> : null}
                 {this.props.actor ? <div className="actor">{this.props.actor}</div> : null}
@@ -27,4 +19,4 @@ class Item extends Component {
     }
 }
 
-export default Item;
+export default MovieDetailed;
