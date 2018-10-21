@@ -3,11 +3,6 @@ import { Link } from 'react-router-dom';
 import './style.css';
 
 class MovieBrief extends Component {
-
-    handleLinkClick = () => {
-        this.props.link(this.props.title);
-    }
-
     render() {
         let movieUrl =  '/movie/' + this.props.title.split(' ').join('-');
 

@@ -35,7 +35,6 @@ class MovieList extends Component {
                         genre={el.genre} 
                         actor={el.actor} 
                         year={el.year} 
-                        link={this.handleLinkClick} 
                  />)}
             </div>
          )
