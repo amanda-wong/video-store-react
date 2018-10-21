@@ -79,7 +79,7 @@ class App extends Component {
                                     link={this.movieLinkHandler} /> } 
                         />
                         <Route 
-                            path="/movie/:slug" 
+                            path="/movie/:slug"
                             render={(props) => 
                                 <Movie {...props} results={this.state.displayResult} />}
                         />

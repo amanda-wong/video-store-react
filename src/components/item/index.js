@@ -9,7 +9,7 @@ class Item extends Component {
     }
 
     render() {
-        let movieUrl = 'movie/' + this.props.title.split(' ').join('-'); 
+        let movieUrl =  '/movie/' + this.props.title.split(' ').join('-'); 
 
         return (
             <div className="search-item">
