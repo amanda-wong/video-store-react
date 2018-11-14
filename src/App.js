@@ -6,15 +6,16 @@ import Layout from './views/layout';
 import './App.css';
 
 class App extends Component {
+    
     render() {
         return (
             <BrowserRouter>
                 <Layout>
                     <Route path="/" exact component={MovieList} />
-                    <Route path="/movie/:slug" component={MovieDetail} />
+                    <Route path="/movie/:slug" exact component={MovieDetail} />
                 </Layout>
             </BrowserRouter>
-        );
+        ); 
     }
 }
 

@@ -20,7 +20,6 @@ class MovieDetail extends Component {
     }
     
     render() {
-        console.log("movie", this.state.movie);
         var movie = this.state.movie;
         if (!movie) {
             return null;
@@ -41,5 +40,7 @@ class MovieDetail extends Component {
             </div>);
     }
 }
+
+
 
 export default MovieDetail;

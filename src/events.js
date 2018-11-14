@@ -1,22 +1,22 @@
 var listeners = {};
 
-function publish(event, payload) {
-    console.log('Publishing event', payload);
-    var queue = listeners[event];
-    if (queue) {
-        queue.forEach(callback => callback(payload));
-    }
-}
-
-function subscribe(event, callback) {
-    console.log('Subscribing to event', event);
-    var queue = listeners[event] || [];
+function subscribe(event, callback) {          // Subscribe: adds events as keys and arrays filled with callbacks as properties
+    console.log('Subscribing to' , event);
+    var queue = listeners[event] || []; 
     queue.push(callback);
     listeners[event] = queue;
 }
 
-function unsubscribe(event, callback) {
-    console.log('Unsubscribing to event', event);
+function publish(event, payload) {            // publish: finds event and execute each callback in the array       
+    console.log('Publishing ' + event, payload);
+    var queue = listeners[event];                   
+    if (queue) {
+        queue.forEach(callback => callback(payload)); 
+    }
+}
+
+function unsubscribe(event, callback) {       // unsubscribe: find event and loop through array until callback has been found and remove
+    console.log('Unsubscribing to', event);
     var queue = listeners[event];
     for (var i = 0; i < queue.length; i++) {
         if (queue[i] === callback) {

@@ -9,11 +9,11 @@ class MovieList extends Component {
             results: null
         };
 
-        Events.subscribe('SEARCH', this.searchHandler);
+        Events.subscribe('SEARCH', this.searchHandler);  // Subscribing to SEARCH and activating a function when something is emitted to it
     }
 
     componentWillUnmount() {
-        Events.unsubscribe('SEARCH', this.searchHandler);
+        Events.unsubscribe('SEARCH', this.searchHandler);  // Unsubscribe when unmounting/or switching the page
     }
 
     searchHandler = ({ results }) => {
@@ -35,13 +35,10 @@ class MovieList extends Component {
                         genre={el.genre} 
                         actor={el.actor} 
                         year={el.year} 
-                 />)}
+                    />)}
             </div>
          )
     }
 }
-
-
-
 
 export default MovieList;

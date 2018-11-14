@@ -58,6 +58,9 @@ class SearchBar extends Component {
     }
 
     render() {
+        console.log("genre chosen: ",this.state.genre)
+        console.log("searched text: ",this.state.searchText)
+
         if (this.state.redirect) {
             return <Redirect to={{ pathname: '/' }} />;
         }

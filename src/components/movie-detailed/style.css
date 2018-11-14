@@ -1,20 +1,18 @@
-.search-item {
+.movie-content {
     display:flex;
-    text-transform: capitalize;
     margin-bottom: 30px;
 }
 
-.search-item div {
-    margin-right: 30px;
+.movie-details > div {
+    margin-bottom: 10px;
 }
 
-.title {
-    font-weight: bold;
-    margin-right: 30px;
-    text-decoration: none;
-    color: #000;
+.title-year-wrap {
+    display: flex;
 }
 
-.title:hover  {
+.title-year-wrap .title {
+    margin-right: 10px;
+    text-transform: capitalize;
     text-decoration: underline;
 }
