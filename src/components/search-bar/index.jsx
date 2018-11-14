@@ -54,13 +54,13 @@ class SearchBar extends Component {
             .then((data) => Events.publish('SEARCH', { results: data }))
             .catch(error => console.error('Fetch Error: ', error));
 
-        this.setState({ redirect: true });
+        this.setState({ 
+            redirect: true,
+            searchText: ''        
+        });
     }
 
     render() {
-        console.log("genre chosen: ",this.state.genre)
-        console.log("searched text: ",this.state.searchText)
-
         if (this.state.redirect) {
             return <Redirect to={{ pathname: '/' }} />;
         }
