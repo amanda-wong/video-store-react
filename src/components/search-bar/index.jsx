@@ -56,7 +56,8 @@ class SearchBar extends Component {
 
         this.setState({ 
             redirect: true,
-            searchText: ''        
+            searchText: null,   
+            genre: null     
         });
     }
 
