@@ -1,27 +1,11 @@
 import React, { Component } from 'react';
 import MovieBrief from '../components/movie-brief';
-import Events from '../events';
+import { connect } from 'react-redux';
 
 class MovieList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            results: null
-        };
-
-        Events.subscribe('SEARCH', this.searchHandler);  // Subscribing to SEARCH and activating a function when something is emitted to it
-    }
-
-    componentWillUnmount() {
-        Events.unsubscribe('SEARCH', this.searchHandler);  // Unsubscribe when unmounting/or switching the page
-    }
-
-    searchHandler = ({ results }) => {
-        this.setState({ results });
-    }
     
     render() {
-        var results = this.state.results;
+        var results = this.props.search.results;
         if (!results) {
             return null;
         }
@@ -41,4 +25,10 @@ class MovieList extends Component {
     }
 }
 
-export default MovieList;
+const mapStateToProps = (state) => {
+    return {
+        search: state.search
+    }
+}
+
+export default connect(mapStateToProps, null, null)(MovieList)

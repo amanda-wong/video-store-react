@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import Events from '../../events';
+// import Events from '../../events';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { searchActionCreators } from '../../actions/searchActions';
 import './style.css';
 
 class SearchBar extends Component {
@@ -51,17 +54,21 @@ class SearchBar extends Component {
     
         fetch(url)
             .then(res => res.json())
-            .then((data) => Events.publish('SEARCH', { results: data }))
+            .then((data) => this.props.searchActions.search(data))
             .catch(error => console.error('Fetch Error: ', error));
-
-        this.setState({ 
+        
+            this.setState({ 
             redirect: true,
             searchText: null,   
             genre: null     
-        });
+        }); 
     }
 
     render() {
+        console.log("genre: ", this.state.genre)
+        console.log("searchText: ", this.state.searchText)
+
+
         if (this.state.redirect) {
             return <Redirect to={{ pathname: '/' }} />;
         }
@@ -84,4 +91,19 @@ class SearchBar extends Component {
     }
 }
 
-export default SearchBar;
+const mapStateToProps = (state) => {
+    return {
+        search: state.search
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        searchActions: bindActionCreators(searchActionCreators, dispatch)
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SearchBar);
