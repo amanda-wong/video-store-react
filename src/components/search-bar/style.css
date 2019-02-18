@@ -1,8 +1,13 @@
+header {
+    padding: 20px;
+    background-color: lightcoral;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .search-bar {
     display: flex;
-    padding: 20px;
     justify-content: center;
-    background-color: lightcoral;
     align-items: center;
 }
 
@@ -24,4 +29,10 @@
 
 .search-icon {
     margin-left: 15px;
+}
+
+.account-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
