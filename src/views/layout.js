@@ -10,7 +10,8 @@ class Layout extends Component {
             modalIsOpen: false
         }
 
-        this.addMovieButtonHandler = this.addMovieButtonHandler.bind(this)
+        this.addMovieButtonHandler = this.addMovieButtonHandler.bind(this);
+        this.closeModalHandler = this.closeModalHandler.bind(this);
     }
 
     render() {
@@ -21,16 +22,22 @@ class Layout extends Component {
                     {this.props.children}
                 </div>
                 
-                {this.state.modalIsOpen && <AddMovieModal />}
+                {this.state.modalIsOpen && <AddMovieModal closeModal={this.closeModalHandler} />}
                 <AddMovieButton buttonClick={this.addMovieButtonHandler} />
             </div>
         );
     }
 
-    addMovieButtonHandler () {
-        this.setState({ modalIsOpen: !this.state.modalIsOpen });
+    addMovieButtonHandler() {
+        this.setState({ modalIsOpen: true });
+    }
+
+    closeModalHandler(e) {
+        const form = document.querySelector('.add-movie-modal');
+        if(e.target !== form) {
+            this.setState({ modalIsOpen: false });
+        }
     }
 }
-
 
 export default Layout;

@@ -10,10 +10,14 @@
     right: 0;
     bottom: 0;
     top: 0;
+    background-color: rgba(0,0,0,0.3);
+
 }
 
 .add-movie-modal {
-    width: 500px;
+    width: 50%;
+    height: 50vh;
+    background-color: #FFF;
     display: flex;
     flex-direction: column;
     margin: 0 auto;

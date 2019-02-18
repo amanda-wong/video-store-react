@@ -1,9 +1,9 @@
 import React from "react";
 import "./style.css";
 
-const AddMovieModal = () => {
+const AddMovieModal = (props) => {
     return (
-        <div className="modal-outer-container">
+        <div className="modal-outer-container" onClick={props.closeModal}>
             <div className="add-movie-modal">
                 Add a movie
                 <input type="text" placeholder="Movie Title" />
@@ -19,5 +19,7 @@ const AddMovieModal = () => {
         </div>
     );
 }
+
+
 
 export default AddMovieModal;
