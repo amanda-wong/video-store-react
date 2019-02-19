@@ -33,8 +33,8 @@ class Layout extends Component {
     }
 
     closeModalHandler(e) {
-        const form = document.querySelector('.add-movie-modal');
-        if(e.target !== form) {
+        const modalContainer = document.querySelector('.modal-outer-container');
+        if(e.target === modalContainer) {
             this.setState({ modalIsOpen: false });
         }
     }
