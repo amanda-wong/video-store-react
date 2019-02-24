@@ -25,36 +25,66 @@ class AddMovieModal extends Component {
             <div className="modal-outer-container" onClick={this.props.closeModal}>
                 <div className="add-movie-modal">
                     <h3>Add A Movie</h3>
-                    <input type="text" placeholder="Movie Title" maxlength="50" required />
-                    <input type="number" placeholder="Duration in minutes" />
-                    <select className="genres">
-                        <option value="">Genre</option>
-                        {genres}
-                    </select>
-
-                    <select>
-                        <option>Year</option>
-                        {this.getYears(1950, 2019)}
-                    </select>
-                    <InputRange
-                        step={0.5}
-                        maxValue={10}
-                        minValue={0}
-                        value={this.state.value}
-                        onChange={value => this.setState({ value })} 
-                    />
-                    <input type="text" placeholder="Actor" />
-                    <input type="url" placeholder="Image Url" />
-                    <textarea type="text" placeholder="Description" />
-                    <select>
-                        <option>Rating</option>
-                        <option>G</option>
-                        <option>PG</option>
-                        <option>PG-13</option>
-                        <option>R</option>
-                        <option>NC-17</option>
-                    </select>
-                    <input type="submit"/>
+                    <div className="details-containers">
+                        <div className="text-wrap">
+                            <label>Movie Title</label>
+                            <input type="text" maxlength="50" required />
+                        </div>
+                        <div className="text-wrap duration">
+                            <label>Duration in Minutes</label>
+                            <input type="number" />
+                        </div>
+                        <div className="movie-details-container">
+                            <select className="genres">
+                                <option value="">Genre</option>
+                                {genres}
+                            </select>
+                            <select>
+                                <option>Year</option>
+                                {this.getYears(1950, 2019)}
+                            </select>
+                            <select>
+                                <option>Rating</option>
+                                <option>G</option>
+                                <option>PG</option>
+                                <option>PG-13</option>
+                                <option>R</option>
+                                <option>NC-17</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="details-containers">
+                        <div className="text-wrap image-url">
+                            <label>Image Url</label>
+                            <input type="url" />
+                        </div>
+                        <div className="customer-rating-container">
+                            <label>Customer Rating</label>
+                            <InputRange
+                                step={0.5}
+                                maxValue={10}
+                                minValue={0}
+                                value={this.state.value}
+                                onChange={value => this.setState({ value })} 
+                            />
+                        </div>
+                    </div>
+                    <div className="text-wrap">
+                        <label>Description</label>
+                        <textarea type="text" />
+                    </div>
+                    <h4>Actor</h4>
+                    <div className="details-containers">
+                        <div className="text-wrap first-name">
+                            <label>First Name</label>
+                            <input type="text" />
+                        </div>
+                        <div className="text-wrap last-name">
+                            <label>Last Name</label>
+                            <input type="text" />
+                        </div>
+                    </div>
+                    <input type="submit" className="submit-movie" />
                 </div>
             </div>
         );

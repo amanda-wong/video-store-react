@@ -27,7 +27,13 @@
     margin-top: 0;
 }
 
-.add-movie-modal input,
+.add-movie-modal label {
+    margin-bottom: 8px;
+}
+
+.add-movie-modal input[type="number"],
+.add-movie-modal input[type="text"],
+.add-movie-modal input[type="url"],
 .add-movie-modal select,
 .add-movie-modal textarea {
     background: #FFF;
@@ -48,4 +54,68 @@
 
 .add-movie-modal .genres option {
     text-transform: capitalize;
+}
+
+/* contents */
+.details-containers {
+    display: flex;
+    margin-bottom: 18px;
+}
+
+.details-containers .text-wrap {
+    width: 300px;
+}
+
+.duration, 
+.last-name {
+    margin-left: 12px;
+}
+
+.text-wrap.image-url {
+    width: 500px;
+}
+
+.movie-details-container {
+    display: flex;
+    align-items: flex-end;
+}
+
+.movie-details-container select {
+    height: 38px;
+    margin-left: 12px;
+}
+
+.movie-title-container,
+.image-url-container {
+    width: 730px;
+    margin-right: 12px;
+}
+
+.text-wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.description-container,
+.movie-title-details-containers {
+    margin-bottom: 18px;
+}
+
+.customer-rating-container {
+    width: 100%;
+    margin-left: 20px;
+}
+
+.input-range {
+    margin-top: 20px;
+}
+
+.submit-movie {
+    border: none;
+    background: lightslategrey;
+    color: #FFF;
+    font-weight: bold;
+    height: 40px;
+    outline: none;
+    font-size: 18px;
 }
