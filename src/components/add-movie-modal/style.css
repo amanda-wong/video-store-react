@@ -72,7 +72,7 @@
 }
 
 .text-wrap.image-url {
-    width: 500px;
+    width: 455px;
 }
 
 .movie-details-container {
@@ -105,9 +105,26 @@
     width: 100%;
     margin-left: 20px;
 }
-
+/* knob */
 .input-range {
     margin-top: 20px;
+}
+
+.customer-rating-container .input-range__slider {
+    background: lightslategrey;
+    border: 1px solid lightslategrey;
+}
+
+.customer-rating-container .input-range__track--active {
+    background: lightslategrey;
+}
+.customer-rating-container .input-range__track--background {
+    background: #d1d1d1;
+}
+
+.customer-rating-container .input-range__label-container {
+    color: #313233; 
+    font-family: sans-serif;
 }
 
 .submit-movie {
