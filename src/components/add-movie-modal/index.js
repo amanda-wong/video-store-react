@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import InputRange from 'react-input-range';
+import AddIcon from '../add-icon';
 import "./style.css";
 import "react-input-range/lib/css/index.css"
 
@@ -8,8 +9,9 @@ class AddMovieModal extends Component {
         super(props);
         this.state = {
             genres: [],
-            value: 0,
         }
+
+        // this.handleAddActorClick = this.handleAddActorClick.bind(this);
     }
 
     componentDidMount() {
@@ -21,6 +23,9 @@ class AddMovieModal extends Component {
 
     render() {
         let genres = this.state.genres.map((item, i) => <option key={i} value={item.genre}>{item.genre}</option>)
+
+        console.log("STATE ========>", this.state);
+        
         return (
             <div className="modal-outer-container" onClick={this.props.closeModal}>
                 <div className="add-movie-modal">
@@ -28,7 +33,7 @@ class AddMovieModal extends Component {
                     <div className="details-containers">
                         <div className="text-wrap">
                             <label>Movie Title</label>
-                            <input type="text" maxlength="50" required />
+                            <input type="text" maxLength="50" required />
                         </div>
                         <div className="text-wrap duration">
                             <label>Duration in Minutes</label>
@@ -73,17 +78,15 @@ class AddMovieModal extends Component {
                         <label>Description</label>
                         <textarea type="text" />
                     </div>
-                    <h4>Actor</h4>
-                    <div className="details-containers">
-                        <div className="text-wrap first-name">
-                            <label>First Name</label>
-                            <input type="text" />
+                    <div className="add-actor-container">
+                        <h4>Actor</h4>
+                        <AddIcon size="small" click={this.handleAddActorClick.bind(this)} />
+                    </div> 
+                    {this.state.actors && 
+                        <div className="actors-fields-container">
+                            {this.getActorFields(this.state.actors)}
                         </div>
-                        <div className="text-wrap last-name">
-                            <label>Last Name</label>
-                            <input type="text" />
-                        </div>
-                    </div>
+                    }
                     <input type="submit" className="submit-movie" />
                 </div>
             </div>
@@ -98,8 +101,33 @@ class AddMovieModal extends Component {
 
         return array.map((item,i) => <option key={i}>{item}</option>);
     }
-}
 
+    handleAddActorClick() {
+        if(!this.state.actors) {
+            this.setState({ actors: [null] })
+        } else {
+            const actorList = this.state.actors;
+            actorList.push(null);
+            this.setState({ actors: actorList })
+        }
+    }
+    
+    getActorFields(actorList) {
+        return actorList.map((el, i) => 
+            <div key={i} className="details-containers ">
+                <div className="text-wrap first-name">
+                    <label>First Name</label>
+                    <input type="text" value={!el ? null : el.firstName} />
+                </div>
+                <div className="text-wrap last-name">
+                    <label>Last Name</label>
+                    <input type="text" value={!el ? null : el.lastName} />
+                </div>
+                <button className="removeButton">Remove</button>
+            </div>
+        );
+    }
+}
 
 
 
