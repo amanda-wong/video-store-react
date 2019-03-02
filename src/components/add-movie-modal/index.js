@@ -9,6 +9,7 @@ class AddMovieModal extends Component {
         super(props);
         this.state = {
             genres: [],
+            value: 0,
         }
 
         // this.handleAddActorClick = this.handleAddActorClick.bind(this);
