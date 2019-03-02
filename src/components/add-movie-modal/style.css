@@ -52,7 +52,7 @@
     outline: none;
 }
 
-.add-movie-modal .genres option {
+.add-movie-modal .genres {
     text-transform: capitalize;
 }
 

@@ -8,22 +8,19 @@ class AddMovieModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            genres: [],
-            value: 0,
+            genreList: [],
+            customerRating: 0,
         }
-
-        // this.handleAddActorClick = this.handleAddActorClick.bind(this);
     }
 
     componentDidMount() {
         fetch('http://localhost:8000/genres')
             .then(res => res.json())
-            .then((data) => this.setState({ genres: data }))
+            .then((data) => this.setState({ genreList: data }))
             .catch(error => console.error('Fetch Error: ', error));
     }
 
     render() {
-        let genres = this.state.genres.map((item, i) => <option key={i} value={item.genre}>{item.genre}</option>)
 
         console.log("STATE ========>", this.state);
         
@@ -34,35 +31,57 @@ class AddMovieModal extends Component {
                     <div className="details-containers">
                         <div className="text-wrap">
                             <label>Movie Title</label>
-                            <input type="text" maxLength="50" required />
+                            <input
+                                type="text"
+                                maxLength="50"
+                                required
+                                value={this.state.movieTitle}
+                                onChange={e => this.setState({ movieTitle: e.target.value })} />
                         </div>
                         <div className="text-wrap duration">
                             <label>Duration in Minutes</label>
-                            <input type="number" />
+                            <input
+                                type="number"
+                                min="0"
+                                value={this.state.duration}
+                                onChange={e => this.setState({ movieDuration: e.target.value })} />
                         </div>
                         <div className="movie-details-container">
-                            <select className="genres">
+                            <select
+                                className="genres"
+                                value={this.state.movieGenre}
+                                onChange={e => this.setState({ movieGenre: e.target.value})}
+                            >
                                 <option value="">Genre</option>
                                 {this.getGenres()}
                             </select>
-                            <select>
+                            <select 
+                                value={this.state.value}
+                                onChange={e => this.setState({ movieYear: Number(e.target.value)})}
+                            >
                                 <option>Year</option>
                                 {this.getYears(1950, 2019)}
                             </select>
-                            <select>
-                                <option>Rating</option>
-                                <option>G</option>
-                                <option>PG</option>
-                                <option>PG-13</option>
-                                <option>R</option>
-                                <option>NC-17</option>
+                            <select
+                                value={this.state.movieRating}
+                                onChange={e => this.setState({ movieRating: e.target.value})}
+                            >
+                                <option value="">Rating</option>
+                                <option value="G">G</option>
+                                <option value="PG">PG</option>
+                                <option value="PG-13">PG-13</option>
+                                <option value="R">R</option>
+                                <option value="NC-17">NC-17</option>
                             </select>
                         </div>
                     </div>
                     <div className="details-containers">
                         <div className="text-wrap image-url">
                             <label>Image Url</label>
-                            <input type="url" />
+                            <input
+                                type="text"
+                                value={this.state.movieImageUrl}
+                                onChange={e => this.setState({ movieImageUrl: e.target.value })} />
                         </div>
                         <div className="customer-rating-container">
                             <label>Customer Rating</label>
@@ -70,14 +89,17 @@ class AddMovieModal extends Component {
                                 step={0.5}
                                 maxValue={10}
                                 minValue={0}
-                                value={this.state.value}
-                                onChange={value => this.setState({ value })} 
+                                value={this.state.customerRating}
+                                onChange={customerRating => this.setState({ customerRating })} 
                             />
                         </div>
                     </div>
                     <div className="text-wrap">
                         <label>Description</label>
-                        <textarea type="text" />
+                        <textarea 
+                            type="text"
+                            value={this.state.movieDescription}
+                            onChange={e => this.setState({ movieDescription: e.target.value })} />
                     </div>
                     <div className="add-actor-container">
                         <h4>Actor</h4>
@@ -88,7 +110,7 @@ class AddMovieModal extends Component {
                             {this.addActorField()}
                         </div>
                     }
-                    <input type="submit" className="submit-movie" />
+                    <input type="submit" className="submit-movie" value="Submit" />
                 </div>
             </div>
         );
@@ -100,11 +122,12 @@ class AddMovieModal extends Component {
             array.push(i);
         }
 
-        return array.map((item,i) => <option key={i}>{item}</option>);
+        return array.map((item,i) => 
+            <option key={i} value={item}>{item}</option>);
     }
 
     getGenres() {
-        return this.state.genres.map((item, i) => 
+        return this.state.genreList.map((item, i) => 
             <option key={i} value={item.genre}>{item.genre}</option>)
     }
 
@@ -125,7 +148,10 @@ class AddMovieModal extends Component {
             <div key={i} className="details-containers ">
                 <div className="text-wrap first-name">
                     <label>First Name</label>
-                    <input type="text" />
+                    <input
+                        type="text" 
+                        // value={this.state.actors[i].firstName}
+                        onChange={this.handleActorFirstName} />
                 </div>
                 <div className="text-wrap last-name">
                     <label>Last Name</label>
@@ -136,6 +162,19 @@ class AddMovieModal extends Component {
         );
     };
 
+    handleActorFirstName(e, i) {
+        const firstName = e.target.value;
+        const actorList = this.state.actors;
+        actorList[i].firstName = firstName;
+
+
+        // this.setState({
+        //     actors: actorList
+        // })
+        // TODO: handleActorName change
+        
+    }
+
     removeActorField(i) {
         const actorList = this.state.actors;
         actorList.splice(i,1);
@@ -143,7 +182,5 @@ class AddMovieModal extends Component {
         this.setState({ actors: actorList });
     };
 }
-
-
 
 export default AddMovieModal;
