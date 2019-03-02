@@ -42,7 +42,7 @@ class AddMovieModal extends Component {
                         <div className="movie-details-container">
                             <select className="genres">
                                 <option value="">Genre</option>
-                                {genres}
+                                {this.getGenres()}
                             </select>
                             <select>
                                 <option>Year</option>
@@ -100,6 +100,11 @@ class AddMovieModal extends Component {
         }
 
         return array.map((item,i) => <option key={i}>{item}</option>);
+    }
+
+    getGenres() {
+        return this.state.genres.map((item, i) => 
+            <option key={i} value={item.genre}>{item.genre}</option>)
     }
 
     handleAddActorClick() {
