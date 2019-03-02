@@ -128,10 +128,16 @@ class AddMovieModal extends Component {
                     <label>Last Name</label>
                     <input type="text" value={!el ? null : el.lastName} />
                 </div>
-                <button className="removeButton">Remove</button>
+                <button className="removeButton" onClick={(i) => this.removeActorField(i)}>Remove</button>
             </div>
         );
-    }
+
+    removeActorField(i) {
+        const actorList = this.state.actors;
+        actorList.splice(i,1);
+
+        this.setState({ actors: actorList });
+    };
 }
 
 
