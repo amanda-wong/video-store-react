@@ -133,10 +133,10 @@ class AddMovieModal extends Component {
 
     handleAddActorClick() {
         if(!this.state.actors) {
-            this.setState({ actors: [null] })
+            this.setState({ actors: [{}] })
         } else {
             const actorList = this.state.actors;
-            actorList.push(null);
+            actorList.push({});
             this.setState({ actors: actorList })
         }
     }
@@ -145,19 +145,27 @@ class AddMovieModal extends Component {
         const actorList = this.state.actors;   
 
         return actorList.map((el, i) => 
-            <div key={i} className="details-containers ">
+            <div key={i} className="details-containers">
                 <div className="text-wrap first-name">
                     <label>First Name</label>
                     <input
                         type="text" 
-                        // value={this.state.actors[i].firstName}
-                        onChange={this.handleActorFirstName} />
+                        value={el.firstName}
+                        onChange={(e) => this.handleActorFirstName(e, i)} />
                 </div>
                 <div className="text-wrap last-name">
                     <label>Last Name</label>
-                    <input type="text" />
+                    <input 
+                        type="text"
+                        value={el.firstName}
+                        onChange={(e) => this.handleActorFirstName(e, i)} />
                 </div>
-                <button className="removeButton" onClick={(i) => this.removeActorField(i)}>Remove</button>
+                <button
+                    className="removeButton"
+                    onClick={(i) => this.removeActorField(i)}
+                >
+                    Remove
+                </button>
             </div>
         );
     };
@@ -166,19 +174,19 @@ class AddMovieModal extends Component {
         const firstName = e.target.value;
         const actorList = this.state.actors;
         actorList[i].firstName = firstName;
+        this.setState({ actors: [ ...actorList ] });
+    }
 
-
-        // this.setState({
-        //     actors: actorList
-        // })
-        // TODO: handleActorName change
-        
+    handleActorLastName(e, i) {
+        const firstName = e.target.value;
+        const actorList = this.state.actors;
+        actorList[i].firstName = firstName;
+        this.setState({ actors: [ ...actorList ] });
     }
 
     removeActorField(i) {
         const actorList = this.state.actors;
-        actorList.splice(i,1);
-
+        actorList.splice(i, 1);
         this.setState({ actors: actorList });
     };
 }
