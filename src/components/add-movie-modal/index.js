@@ -85,7 +85,7 @@ class AddMovieModal extends Component {
                     </div> 
                     {this.state.actors && 
                         <div className="actors-fields-container">
-                            {this.getActorFields(this.state.actors)}
+                            {this.addActorField()}
                         </div>
                     }
                     <input type="submit" className="submit-movie" />
@@ -118,20 +118,23 @@ class AddMovieModal extends Component {
         }
     }
     
-    getActorFields(actorList) {
+    addActorField() {
+        const actorList = this.state.actors;   
+
         return actorList.map((el, i) => 
             <div key={i} className="details-containers ">
                 <div className="text-wrap first-name">
                     <label>First Name</label>
-                    <input type="text" value={!el ? null : el.firstName} />
+                    <input type="text" />
                 </div>
                 <div className="text-wrap last-name">
                     <label>Last Name</label>
-                    <input type="text" value={!el ? null : el.lastName} />
+                    <input type="text" />
                 </div>
                 <button className="removeButton" onClick={(i) => this.removeActorField(i)}>Remove</button>
             </div>
         );
+    };
 
     removeActorField(i) {
         const actorList = this.state.actors;
