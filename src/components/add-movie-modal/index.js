@@ -157,8 +157,8 @@ class AddMovieModal extends Component {
                     <label>Last Name</label>
                     <input 
                         type="text"
-                        value={el.firstName}
-                        onChange={(e) => this.handleActorFirstName(e, i)} />
+                        value={el.lastName}
+                        onChange={(e) => this.handleActorLastName(e, i)} />
                 </div>
                 <button
                     className="removeButton"
@@ -178,9 +178,9 @@ class AddMovieModal extends Component {
     }
 
     handleActorLastName(e, i) {
-        const firstName = e.target.value;
+        const lastName = e.target.value;
         const actorList = this.state.actors;
-        actorList[i].firstName = firstName;
+        actorList[i].lastName = lastName;
         this.setState({ actors: [ ...actorList ] });
     }
 
