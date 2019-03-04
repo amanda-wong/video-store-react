@@ -103,7 +103,7 @@ class AddMovieModal extends Component {
                     </div>
                     <div className="add-actor-container">
                         <h4>Actor</h4>
-                        <AddIcon size="small" click={this.handleAddActorClick.bind(this)} />
+                        <AddIcon size="small" click={this.handleAddActorClick} />
                     </div> 
                     {this.state.actors && 
                         <div className="actors-fields-container">
