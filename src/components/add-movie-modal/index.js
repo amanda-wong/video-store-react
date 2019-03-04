@@ -164,12 +164,12 @@ class AddMovieModal extends Component {
                         value={el.lastName}
                         onChange={(e) => this.handleActorLastName(e, i)} />
                 </div>
-                <button
+                <input
                     className="removeButton"
+                    type="button"
                     onClick={(i) => this.removeActorField(i)}
-                >
-                    Remove
-                </button>
+                    value="Remove"
+                />
             </div>
         );
     };
