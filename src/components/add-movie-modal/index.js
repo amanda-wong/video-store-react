@@ -110,7 +110,11 @@ class AddMovieModal extends Component {
                             {this.addActorField()}
                         </div>
                     }
-                    <input type="submit" className="submit-movie" value="Submit" />
+                    <input
+                        type="submit"
+                        className="submit-movie"
+                        value="Submit"
+                        onClick={this.handleSubmit} />
                 </div>
             </div>
         );
