@@ -116,7 +116,7 @@ class AddMovieModal extends Component {
         );
     }
 
-    getYears(min, max) {
+    getYears = (min, max) => {
         const array = [];
         for(let i = min; i <= max; i++) {
             array.push(i);
@@ -126,12 +126,12 @@ class AddMovieModal extends Component {
             <option key={i} value={item}>{item}</option>);
     }
 
-    getGenres() {
+    getGenres = () => {
         return this.state.genreList.map((item, i) => 
             <option key={i} value={item.genre}>{item.genre}</option>)
     }
 
-    handleAddActorClick() {
+    handleAddActorClick = () => {
         if(!this.state.actors) {
             this.setState({ actors: [{}] })
         } else {
@@ -141,7 +141,7 @@ class AddMovieModal extends Component {
         }
     }
     
-    addActorField() {
+    addActorField = () => {
         const actorList = this.state.actors;   
 
         return actorList.map((el, i) => 
@@ -170,21 +170,20 @@ class AddMovieModal extends Component {
         );
     };
 
-    handleActorFirstName(e, i) {
+    handleActorFirstName = (e, i) => {
         const firstName = e.target.value;
         const actorList = this.state.actors;
         actorList[i].firstName = firstName;
         this.setState({ actors: [ ...actorList ] });
     }
 
-    handleActorLastName(e, i) {
-        const lastName = e.target.value;
+    handleActorLastName = (e, i) => {
         const actorList = this.state.actors;
         actorList[i].lastName = lastName;
         this.setState({ actors: [ ...actorList ] });
     }
 
-    removeActorField(i) {
+    removeActorField = (i) => {
         const actorList = this.state.actors;
         actorList.splice(i, 1);
         this.setState({ actors: actorList });
