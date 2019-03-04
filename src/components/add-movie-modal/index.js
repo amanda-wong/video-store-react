@@ -193,6 +193,24 @@ class AddMovieModal extends Component {
         actorList.splice(i, 1);
         this.setState({ actors: actorList });
     };
+
+    handleSubmit = () => {
+        const { genreList, ...rest } = this.state;
+        const data = { ...rest }; 
+
+        fetch('http://localhost:8000/movie', {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        })
+        // .then(res => res.json())
+        //     .then(response => console.log('Success:', JSON.stringify(response)))
+        //     .catch(error => console.error('Error:', error));
+    }
+
+
 }
 
 export default AddMovieModal;
