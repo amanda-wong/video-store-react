@@ -132,7 +132,7 @@ class AddMovieModal extends Component {
 
     getGenres = () => {
         return this.state.genreList.map((item, i) => 
-            <option key={i} value={item.genre}>{item.genre}</option>)
+            <option key={i} value={item.id}>{item.genre}</option>)
     }
 
     handleAddActorClick = () => {
