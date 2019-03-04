@@ -23,7 +23,7 @@ class AddMovieModal extends Component {
     render() {
 
         console.log("STATE ========>", this.state);
-        
+
         return (
             <div className="modal-outer-container" onClick={this.props.closeModal}>
                 <div className="add-movie-modal">
@@ -55,7 +55,7 @@ class AddMovieModal extends Component {
                                 <option value="">Genre</option>
                                 {this.getGenres()}
                             </select>
-                            <select 
+                            <select
                                 value={this.state.value}
                                 onChange={e => this.setState({ movieYear: Number(e.target.value)})}
                             >
@@ -90,13 +90,13 @@ class AddMovieModal extends Component {
                                 maxValue={10}
                                 minValue={0}
                                 value={this.state.customerRating}
-                                onChange={customerRating => this.setState({ customerRating })} 
+                                onChange={customerRating => this.setState({ customerRating })}
                             />
                         </div>
                     </div>
                     <div className="text-wrap">
                         <label>Description</label>
-                        <textarea 
+                        <textarea
                             type="text"
                             value={this.state.movieDescription}
                             onChange={e => this.setState({ movieDescription: e.target.value })} />
@@ -104,8 +104,8 @@ class AddMovieModal extends Component {
                     <div className="add-actor-container">
                         <h4>Actor</h4>
                         <AddIcon size="small" click={this.handleAddActorClick} />
-                    </div> 
-                    {this.state.actors && 
+                    </div>
+                    {this.state.actors &&
                         <div className="actors-fields-container">
                             {this.addActorField()}
                         </div>
@@ -126,12 +126,12 @@ class AddMovieModal extends Component {
             array.push(i);
         }
 
-        return array.map((item,i) => 
+        return array.map((item,i) =>
             <option key={i} value={item}>{item}</option>);
     }
 
     getGenres = () => {
-        return this.state.genreList.map((item, i) => 
+        return this.state.genreList.map((item, i) =>
             <option key={i} value={item.id}>{item.genre}</option>)
     }
 
@@ -144,22 +144,22 @@ class AddMovieModal extends Component {
             this.setState({ actors: actorList })
         }
     }
-    
-    addActorField = () => {
-        const actorList = this.state.actors;   
 
-        return actorList.map((el, i) => 
+    addActorField = () => {
+        const actorList = this.state.actors;
+
+        return actorList.map((el, i) =>
             <div key={i} className="details-containers">
                 <div className="text-wrap first-name">
                     <label>First Name</label>
                     <input
-                        type="text" 
+                        type="text"
                         value={el.firstName}
                         onChange={(e) => this.handleActorFirstName(e, i)} />
                 </div>
                 <div className="text-wrap last-name">
                     <label>Last Name</label>
-                    <input 
+                    <input
                         type="text"
                         value={el.firstName}
                         onChange={(e) => this.handleActorFirstName(e, i)} />
