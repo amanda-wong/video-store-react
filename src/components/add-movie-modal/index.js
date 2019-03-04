@@ -44,13 +44,13 @@ class AddMovieModal extends Component {
                                 type="number"
                                 min="0"
                                 value={this.state.duration}
-                                onChange={e => this.setState({ movieDuration: e.target.value })} />
+                                onChange={e => this.setState({ movieDuration: Number(e.target.value) })} />
                         </div>
                         <div className="movie-details-container">
                             <select
                                 className="genres"
                                 value={this.state.movieGenre}
-                                onChange={e => this.setState({ movieGenre: e.target.value})}
+                                onChange={e => this.setState({ movieGenreId: e.target.value})}
                             >
                                 <option value="">Genre</option>
                                 {this.getGenres()}
@@ -161,8 +161,8 @@ class AddMovieModal extends Component {
                     <label>Last Name</label>
                     <input 
                         type="text"
-                        value={el.lastName}
-                        onChange={(e) => this.handleActorLastName(e, i)} />
+                        value={el.firstName}
+                        onChange={(e) => this.handleActorFirstName(e, i)} />
                 </div>
                 <input
                     className="removeButton"
@@ -182,8 +182,9 @@ class AddMovieModal extends Component {
     }
 
     handleActorLastName = (e, i) => {
+        const firstName = e.target.value;
         const actorList = this.state.actors;
-        actorList[i].lastName = lastName;
+        actorList[i].firstName = firstName;
         this.setState({ actors: [ ...actorList ] });
     }
 
