@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import InputRange from 'react-input-range';
 import AddIcon from '../add-icon';
-import "./style.css";
-import "react-input-range/lib/css/index.css"
+import './style.css';
+import 'react-input-range/lib/css/index.css'
 
 class AddMovieModal extends Component {
     constructor(props) {
@@ -35,8 +35,8 @@ class AddMovieModal extends Component {
                                 type="text"
                                 maxLength="50"
                                 required
-                                value={this.state.movieTitle}
-                                onChange={e => this.setState({ movieTitle: e.target.value })} />
+                                value={this.state.title}
+                                onChange={e => this.setState({ title: e.target.value })} />
                         </div>
                         <div className="text-wrap duration">
                             <label>Duration in Minutes</label>
@@ -44,27 +44,27 @@ class AddMovieModal extends Component {
                                 type="number"
                                 min="0"
                                 value={this.state.duration}
-                                onChange={e => this.setState({ movieDuration: Number(e.target.value) })} />
+                                onChange={e => this.setState({ duration: Number(e.target.value)}) } />
                         </div>
                         <div className="movie-details-container">
                             <select
                                 className="genres"
-                                value={this.state.movieGenre}
-                                onChange={e => this.setState({ movieGenreId: e.target.value})}
+                                value={this.state.genre}
+                                onChange={e => this.setState({ genreId: Number(e.target.value)}) }
                             >
                                 <option value="">Genre</option>
                                 {this.getGenres()}
                             </select>
                             <select
                                 value={this.state.value}
-                                onChange={e => this.setState({ movieYear: Number(e.target.value)})}
+                                onChange={e => this.setState({ year: Number(e.target.value)}) }
                             >
                                 <option>Year</option>
                                 {this.getYears(1950, 2019)}
                             </select>
                             <select
-                                value={this.state.movieRating}
-                                onChange={e => this.setState({ movieRating: e.target.value})}
+                                value={this.state.rating}
+                                onChange={e => this.setState({ rating: e.target.value}) }
                             >
                                 <option value="">Rating</option>
                                 <option value="G">G</option>
@@ -80,8 +80,8 @@ class AddMovieModal extends Component {
                             <label>Image Url</label>
                             <input
                                 type="text"
-                                value={this.state.movieImageUrl}
-                                onChange={e => this.setState({ movieImageUrl: e.target.value })} />
+                                value={this.state.imageUrl}
+                                onChange={e => this.setState({ imageUrl: e.target.value })} />
                         </div>
                         <div className="customer-rating-container">
                             <label>Customer Rating</label>
@@ -98,7 +98,7 @@ class AddMovieModal extends Component {
                         <label>Description</label>
                         <textarea
                             type="text"
-                            value={this.state.movieDescription}
+                            value={this.state.description}
                             onChange={e => this.setState({ movieDescription: e.target.value })} />
                     </div>
                     <div className="add-actor-container">
