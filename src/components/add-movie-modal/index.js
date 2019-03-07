@@ -99,7 +99,7 @@ class AddMovieModal extends Component {
                         <textarea
                             type="text"
                             value={this.state.description}
-                            onChange={e => this.setState({ movieDescription: e.target.value })} />
+                            onChange={e => this.setState({ description: e.target.value })} />
                     </div>
                     <div className="add-actor-container">
                         <h4>Actor</h4>
@@ -195,16 +195,19 @@ class AddMovieModal extends Component {
     };
 
     handleSubmit = () => {
-        const { genreList, ...rest } = this.state;
-        const data = { ...rest }; 
+        let { genreList, description, ...rest } = this.state;
+        description = description.toLowerCase()
+        description = description.replace(/'/g, "''");
+        
+        const data = { description, ...rest }; 
+
 
         fetch('http://localhost:8000/movie', {
             method: 'post',
             body: JSON.stringify(data),
-            headers:{
-                'Content-Type': 'application/json'
-            }
-        })
+            headers: { 'Content-Type': 'application/json' }
+        });
+
         // .then(res => res.json())
         //     .then(response => console.log('Success:', JSON.stringify(response)))
         //     .catch(error => console.error('Error:', error));
