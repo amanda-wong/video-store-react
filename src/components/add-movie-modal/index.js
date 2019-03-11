@@ -18,6 +18,11 @@ class AddMovieModal extends Component {
             .then(res => res.json())
             .then((data) => this.setState({ genreList: data }))
             .catch(error => console.error('Fetch Error: ', error));
+
+        fetch('http://localhost:8000/ratings')
+            .then(res => res.json())
+            .then((data) => this.setState({ ratingList: data }))
+            .catch(error => console.error('Fetch Error: ', error));
     }
 
     render() {
@@ -47,12 +52,7 @@ class AddMovieModal extends Component {
                                 onChange={e => this.setState({ duration: Number(e.target.value)}) } />
                         </div>
                         <div className="movie-details-container">
-                            <select
-                                className="genres"
-                                value={this.state.genre}
-                                onChange={e => this.setState({ genreId: Number(e.target.value)}) }
-                            >
-                                <option value="">Genre</option>
+                            {this.getRatings()}
                                 {this.getGenres()}
                             </select>
                             <select
@@ -126,8 +126,24 @@ class AddMovieModal extends Component {
             array.push(i);
         }
 
-        return array.map((item,i) =>
-            <option key={i} value={item}>{item}</option>);
+    getRatings = () => {
+        if (!this.state.ratingList) {
+            return null;
+        }
+
+        const ratings = this.state.ratingList.map((item) =>
+            <option key={item.id} value={item.id}>{item.rating}</option>
+        );
+
+        return (
+            <select
+                value={this.state.ratingId}
+                onChange={e => this.setState({ ratingId: e.target.value })}
+            >
+                <option value="">Rating</option>
+                {ratings}
+            </select>
+        );
     }
 
     getGenres = () => {
