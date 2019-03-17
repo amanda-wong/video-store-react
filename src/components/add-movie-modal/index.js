@@ -8,7 +8,6 @@ class AddMovieModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            genreList: [],
             customerRating: 0,
         }
     }
@@ -17,6 +16,11 @@ class AddMovieModal extends Component {
         fetch('http://localhost:8000/genres')
             .then(res => res.json())
             .then((data) => this.setState({ genreList: data }))
+            .catch(error => console.error('Fetch Error: ', error));
+
+        fetch('http://localhost:8000/actors')
+            .then(res => res.json())
+            .then((data) => this.setState({ actorList: data }))
             .catch(error => console.error('Fetch Error: ', error));
 
         fetch('http://localhost:8000/ratings')
@@ -49,10 +53,11 @@ class AddMovieModal extends Component {
                                 type="number"
                                 min="0"
                                 value={this.state.duration}
-                                onChange={e => this.setState({ duration: Number(e.target.value)}) } />
+                                onChange={e => this.setState({ duration: Number(e.target.value) })} />
                         </div>
                         <div className="movie-details-container">
                             {this.getRatings()}
+                            {this.getYears()}
                                 {this.getGenres()}
                             </select>
                             <select
@@ -102,7 +107,7 @@ class AddMovieModal extends Component {
                             onChange={e => this.setState({ description: e.target.value })} />
                     </div>
                     <div className="add-actor-container">
-                        <h4>Actor</h4>
+                        {this.getActors()}
                         <AddIcon size="small" click={this.handleAddActorClick} />
                     </div>
                     {this.state.actors &&
@@ -120,11 +125,25 @@ class AddMovieModal extends Component {
         );
     }
 
-    getYears = (min, max) => {
+    getYears = () => {
         const array = [];
-        for(let i = min; i <= max; i++) {
+        const max = new Date().getFullYear();
+
+        for (let i = 1950; i <= max; i++) {
             array.push(i);
         }
+
+        return (
+            <select
+                value={this.state.value}
+                onChange={e => this.setState({ year: Number(e.target.value) })}
+            >
+                <option>Year</option>
+                {array.map((item, i) =>
+                    <option key={i} value={item}>{item}</option>)}
+            </select>
+        );
+    }
 
     getRatings = () => {
         if (!this.state.ratingList) {
@@ -147,8 +166,46 @@ class AddMovieModal extends Component {
     }
 
     getGenres = () => {
-        return this.state.genreList.map((item, i) =>
-            <option key={i} value={item.id}>{item.genre}</option>)
+        if (!this.state.genreList) {
+            return null;
+        }
+
+        const genres = this.state.genreList.map((item) =>
+            <option key={item.id} value={item.id}>{item.genre}</option>);
+
+        return (
+            <select
+                className="genres"
+                value={this.state.genreId}
+                onChange={e => this.setState({ genreId: Number(e.target.value) })}
+            >
+                <option value="">Genre</option>
+                {genres}
+            </select>
+        );
+    }
+
+    getActors = () => {
+        if (!this.state.actorList) {
+            return null;
+        }
+
+
+        console.log("Before :", this.state.actorList);
+        
+        const actors = this.state.actorList.map((item) =>
+            <option key={item.id} value={item.id}>{`${item.first_name} ${item.last_name}`}</option>);
+
+        return (
+            <select
+                className="actors"
+                value={this.state.actorId}
+                onChange={e => this.setState({ actorId: Number(e.target.value) })}
+            >
+                <option value="">Actor</option>
+                {actors}
+            </select>
+        );
     }
 
     handleAddActorClick = () => {
