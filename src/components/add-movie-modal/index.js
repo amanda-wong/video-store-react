@@ -268,12 +268,13 @@ class AddMovieModal extends Component {
     };
 
     handleSubmit = () => {
-        let { genreList, description, ...rest } = this.state;
+        let { genreList, title, description, imageUrl, ...rest } = this.state;
+        title = title.trim();
         description = description.toLowerCase()
         description = description.replace(/'/g, "''");
-        
-        const data = { description, ...rest }; 
+        imageUrl = imageUrl.trim();
 
+        const data = { title, description, imageUrl, ...rest };
 
         fetch('http://localhost:8000/movie', {
             method: 'post',
